@@ -83,16 +83,18 @@ export default {
   components: {},
   methods: {
     login() {
-      var parameter = { account: this.account, password: this.password };
-      this.common.$Post(parameter, "token/login").then((data) => {
-          window.localStorage.removeItem("account_token");
-          window.localStorage.setItem("account_token", data.body.access_token);
-          window.location.href = "/home";
-        
+      var keys = this.aes.generatekey(32);
+      var parameter = this.aes.encrypt(
+        JSON.stringify({ account: this.account, password: this.password }),
+        keys
+      );
+      this.common.$Post({ key: parameter,keys:keys }, "token/login").then((data) => {
+        window.localStorage.removeItem("account_token");
+        window.localStorage.setItem("account_token", data.body.access_token);
+        window.location.href = "/home";
       });
     },
   },
-  props:{    
-  }
+  props: {},
 };
 </script>

@@ -7,6 +7,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import './assets/icon/iconfont.css'
+import './assets/icon/iconfont.js'
+import CryptoAES from './comm/CryptoAES.vue'
+
 Vue.config.productionTip = false;
 
 new Vue({
@@ -16,3 +20,4 @@ new Vue({
 }).$mount('#app')
 Vue.use(ElementUI)
 Vue.prototype.common=common;
+Vue.prototype.aes=CryptoAES;

@@ -21,29 +21,37 @@
                     class="el-link-m3"
                     type="danger"
                     :underline="false"
-                    icon="el-icon-circle-plus-outline"
                     plain
                     @click="edtifile(0, 'pptx')"
-                    >PPT</el-link
+                  >
+                    <svg class="icon" aria-hidden="true">
+                      <use xlink:href="#icon-PPT"></use>
+                    </svg>
+                    PPT </el-link
                   ><br />
                   <el-link
                     class="el-link-m3"
                     type="success"
                     :underline="false"
-                    icon="el-icon-circle-plus-outline"
                     plain
                     @click="edtifile(0, 'xlsx')"
                   >
+                    <svg class="icon" aria-hidden="true">
+                      <use xlink:href="#icon-ECEL"></use>
+                    </svg>
                     EXCEL</el-link
                   ><br />
                   <el-link
                     class="el-link-m3"
                     type="primary"
                     :underline="false"
-                    icon="el-icon-circle-plus-outline"
                     plain
                     @click="edtifile(0, 'docx')"
-                    >WORD</el-link
+                  >
+                    <svg class="icon" aria-hidden="true">
+                      <use xlink:href="#icon-WORD"></use>
+                    </svg>
+                    WORD</el-link
                   >
                 </div>
                 <el-button type="primary" icon="el-icon-document-add"
@@ -70,12 +78,30 @@
                     >{{ scope.row.cnname }}</el-link
                   >
                   <el-link
-                    icon="el-icon-document"
                     :underline="false"
                     v-if="scope.row.filetype != 3"
-                   :type="(scope.row.filetype == 2?'danger':(scope.row.filetype==1?'success':'primary'))"
+                    :type="
+                      scope.row.filetype == 2
+                        ? 'danger'
+                        : scope.row.filetype == 1
+                        ? 'success'
+                        : 'primary'
+                    "
                     @click="linkData(scope.row)"
-                    >{{ scope.row.cnname }}</el-link
+                    >
+                    <svg class="icon" aria-hidden="true" v-if=" scope.row.filetype == 1">
+                      <use xlink:href="#icon-ECEL"></use>
+                    </svg>
+                    <svg class="icon" aria-hidden="true" v-if=" scope.row.filetype == 2">
+                      <use xlink:href="#icon-PPT"></use>
+                    </svg>
+                    <svg class="icon" aria-hidden="true" v-if=" scope.row.filetype == 0">
+                      <use xlink:href="#icon-WORD"></use>
+                    </svg>
+                    <svg class="icon" aria-hidden="true" v-if=" scope.row.filetype >2">
+                      <use xlink:href="#icon-TET"></use>
+                    </svg>
+                    {{ scope.row.cnname }}</el-link
                   >
                   <el-tooltip placement="right-start" effect="light">
                     <div slot="content">
@@ -116,6 +142,7 @@
                         icon="el-icon-download"
                         plain
                         v-if="scope.row.filetype != 3"
+                         @click="downloaddoc(scope.row)"
                         >下载文件</el-link
                       ><br v-if="scope.row.filetype != 3" />
                       <el-link
@@ -129,7 +156,15 @@
                       ><br />
                     </div>
                     <el-button
-                      :type="scope.row.filetype == 3 ? 'warning' : (scope.row.filetype == 2?'danger':(scope.row.filetype==1?'success':'primary'))"
+                      :type="
+                        scope.row.filetype == 3
+                          ? 'warning'
+                          : scope.row.filetype == 2
+                          ? 'danger'
+                          : scope.row.filetype == 1
+                          ? 'success'
+                          : 'primary'
+                      "
                       size="mini"
                       icon="el-icon-more"
                       round
@@ -141,7 +176,15 @@
                 <template slot-scope="scope">
                   <el-link
                     :underline="false"
-                    :type="scope.row.filetype == 3 ? 'warning' : (scope.row.filetype == 2?'danger':(scope.row.filetype==1?'success':'primary'))"
+                    :type="
+                      scope.row.filetype == 3
+                        ? 'warning'
+                        : scope.row.filetype == 2
+                        ? 'danger'
+                        : scope.row.filetype == 1
+                        ? 'success'
+                        : 'primary'
+                    "
                     >{{ scope.row.cnname }}</el-link
                   >
                 </template>
@@ -357,6 +400,9 @@ export default {
       window.location.href =
         "/docedit?fileid=" + data.id + "&ctype=0&systemType=0";
     },
+    downloaddoc(item){
+      window.location.href=item.fileurl;
+    }
   },
   components: { EdFolderVue, EdFilesVue },
 };
@@ -382,5 +428,12 @@ export default {
 .el-link-m3 {
   margin-top: 3px;
   margin-bottom: 3px;
+}
+.icon {
+  width: 1.1em;
+  height: 1.1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
 }
 </style>
