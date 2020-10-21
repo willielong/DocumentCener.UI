@@ -24,7 +24,8 @@ const http = {
           message: msg,
           type: type
         });
-  }
+  },
+  api:req.api,
 };
 export default http;
 </script>

@@ -9,7 +9,8 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import './assets/icon/iconfont.css'
 import './assets/icon/iconfont.js'
-import CryptoAES from './comm/CryptoAES.vue'
+import CryptoAES from './comm/CryptoAES.vue';
+
 
 Vue.config.productionTip = false;
 

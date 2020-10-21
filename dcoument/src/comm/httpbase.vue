@@ -191,5 +191,6 @@ export default {
   $Put: function(model, url, contentType, dataType) {
     return http.$Put(model, url, contentType, dataType);
   },
+  api:api
 };
 </script>
