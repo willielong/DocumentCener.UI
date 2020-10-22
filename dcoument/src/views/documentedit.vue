@@ -3,7 +3,7 @@
     <remote-script
       src="http://192.168.0.105:801/web-apps/apps/api/documents/api.js"
     ></remote-script>
-    <div class="shadow mb-5 bg-white rounded">
+    <div class="shadow mb-5 bg-white rounded  Shead_div">
       <div class="row">
         <div class="col">
           <bannerVue></bannerVue>

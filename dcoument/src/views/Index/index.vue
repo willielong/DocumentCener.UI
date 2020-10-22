@@ -1,6 +1,6 @@
 <template>
   <div id="Man_div">
-    <div class="shadow mb-5 bg-white rounded">
+    <div class="shadow mb-5 bg-white rounded Shead_div">
       <ul class="list-group">
         <li class="list-group-item  bg-info text-white "><h3>登录</h3></li>
         <li class="list-group-item">

@@ -1,9 +1,9 @@
 <template>
   <form class="main_div">
     <remote-script
-      src="http://192.168.0.105:801/web-apps/apps/api/documents/api.js"
+      src="http://10.55.165.50:85/web-apps/apps/api/documents/api.js"
     ></remote-script>
-    <div class="shadow mb-5 bg-white rounded">
+    <div class="shadow mb-5 bg-white rounded Shead_div">
       <div class="row">
         <div class="col">
           <bannerVue></bannerVue>
@@ -23,20 +23,19 @@
       </div>
       <div
         class="row"
-        style="height:900px;margin-left:0px;margin-right:0px;margin-top:0px"
+        style="height:900px;margin-left:0px;margin-right:0px;margin-top:-15px"
       >
         <div id="iframeEditor"></div>
       </div>
     </div>
   </form>
 </template>
-<script src="http://192.168.0.105:801/web-apps/apps/api/documents/api.js"></script>
+<script src="http://10.55.165.50:85/web-apps/apps/api/documents/api.js"></script>
 <script>
 import $ from "jquery";
 import "@/comm/importJS.js";
 import bannerVue from "../../components/banner.vue";
-import httpbaseVue from '../../comm/httpbase.vue';
-
+import httpbaseVue from "../../comm/httpbase.vue";
 
 var docEditor;
 var innerAlert = function(message) {
@@ -71,12 +70,13 @@ var onOutdatedVersion = function(event) {
 };
 window.onload = function() {
   var fileId = getUrlParam("fileid");
+  var ctype =  getUrlParam("ctype");
+  var systemType = getUrlParam("systemType");
   let url =
-    httpbaseVue.api + "file/config?editType=0&systemType=0&fileid=" +
-      fileId;
+    httpbaseVue.api + "file/config?editType=" + ctype + "&systemType="+systemType+"&fileid=" + fileId;
   $.ajax({
     type: "Get",
-    url:url,
+    url: url,
     dataType: "json",
     contentType: "application/json; charset=utf-8",
     beforeSend: function(request) {
@@ -92,7 +92,7 @@ window.onload = function() {
         onDocumentStateChange: onDocumentStateChange,
         onRequestEditRights: onRequestEditRights,
         onError: onError,
-        onOutdatedVersion: onOutdatedVersion,
+        onOutdatedVersion: onOutdatedVersion
       };
       config.events["onRequestHistoryClose "] = function() {
         document.location.reload();
@@ -105,12 +105,11 @@ window.onload = function() {
         setHist(ver, fileId);
       };
       docEditor = new DocsAPI.DocEditor("iframeEditor", config);
-    },
+    }
   });
 };
 function LoadHist(fileId) {
-   let url =
-    httpbaseVue.api + "version/hist?fileid=" + fileId ;
+  let url = httpbaseVue.api + "version/hist?fileid=" + fileId;
   $.ajax({
     type: "Get",
     url: url,
@@ -125,12 +124,16 @@ function LoadHist(fileId) {
     success: function(data) {
       var hit = data.body;
       docEditor.refreshHistory(hit);
-    },
+    }
   });
 }
 function setHist(version, fileid) {
   let url =
-    httpbaseVue.api + "version/sethist?fileid=" + fileid + "&version=" + version;
+    httpbaseVue.api +
+    "version/sethist?fileid=" +
+    fileid +
+    "&version=" +
+    version;
   $.ajax({
     type: "Get",
     url: url,
@@ -145,14 +148,14 @@ function setHist(version, fileid) {
     success: function(data) {
       var hit = data.body;
       docEditor.setHistoryData(hit);
-    },
+    }
   });
 }
 export default {
   name: "docedit",
-  components: { bannerVue },
+  components: { bannerVue }
 };
 </script>
 <style lang="stylus" scoped>
-@import url("~@/assets/Home/home.css");
+@import url('~@/assets/Home/home.css');
 </style>

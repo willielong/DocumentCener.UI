@@ -1,14 +1,20 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import index from '../views/Index/index.vue'
+import sign from '../views/sign.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/index',
     name: 'Index',
     component: index
+  },
+  {
+    path: '/',
+    name: 'Sign in',
+    component: sign
   },
   {
     path: '/home',
