@@ -51,8 +51,8 @@ export default {
       if (value === undefined || value === "" || value === null) {
         return callback(new Error("请输入中文名"));
       } else {
-        if (value.length > 20) {
-          return callback(new Error("中文名不大于20字符"));
+        if (value.length > 100) {
+          return callback(new Error("中文名不大于100字符"));
         } else {
           var regex = new RegExp(
             "^([\u4E00-\uFA29]|[\uE7C7-\uE7F3]|[a-zA-Z0-9]){1,20}$"
@@ -72,8 +72,8 @@ export default {
       if (value === undefined || value === "" || value === null) {
         return callback(new Error("请输入英文名"));
       } else {
-        if (value.length > 20) {
-          return callback(new Error("英文名不大于20字符"));
+        if (value.length > 100) {
+          return callback(new Error("英文名不大于100字符"));
         } else {
           var regex = new RegExp("^([a-zA-Z0-9 ]){1,20}$"); //包含“-”
           if (!regex.test(value)) {
