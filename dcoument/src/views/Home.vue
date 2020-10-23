@@ -1,6 +1,6 @@
 <template>
   <form class="main_div">
-    <div class="shadow mb-5 bg-white rounded Shead_div">
+    <div class="shadow bg-white rounded Shead_div">
       <div class="row">
         <div class="col">
           <banner></banner>

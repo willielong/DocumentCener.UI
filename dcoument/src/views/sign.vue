@@ -22,10 +22,10 @@
             <input
               type="button"
               class="sign-in"
-              value="Sign In"
+              value="登录"
               @click="login()"
             />
-            <input type="button" class="reset" value="Reset" @click="Reset()" />
+            <input type="button" class="reset" value="重置" @click="Reset()" />
             <div class="clear"></div>
           </div>
         </form>
@@ -34,7 +34,7 @@
     </div>
   </div>
 </template>
-<style lang="stylus" scoped>
+<style lang="stylus">
 @import url('~@/assets/Index/Index.css');
 </style>
 <script>
@@ -47,7 +47,7 @@ export default {
       passwordtip: "请输入密码",
       accounttips: "请输入用户名",
       pwlab: "密  码",
-      aclab: "用户名"
+      aclab: "用户名",
     };
   },
   components: {},

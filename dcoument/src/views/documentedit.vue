@@ -3,7 +3,7 @@
     <remote-script
       src="http://192.168.0.105:801/web-apps/apps/api/documents/api.js"
     ></remote-script>
-    <div class="shadow mb-5 bg-white rounded  Shead_div">
+    <div class="shadow bg-white rounded  Shead_div">
       <div class="row">
         <div class="col">
           <bannerVue></bannerVue>
@@ -21,7 +21,10 @@
           </nav>
         </div>
       </div>
-      <div class="row" style="height:900px;margin-left:0px;margin-right:0px;margin-top:0px">
+      <div
+        class="row"
+        style="height:900px;margin-left:0px;margin-right:0px;margin-top:0px"
+      >
         <div id="iframeEditor"></div>
       </div>
     </div>
@@ -63,7 +66,7 @@ export default {
     },
     LoadHist(fileId, config) {
       let url = "version/hist?hist?fileid=" + fileId;
-      this.common.$Get(null, url).then((data) => {
+      this.common.$Get(null, url).then(data => {
         var hit = data.body;
         this.docEditor.refreshHistory(hit);
         console.log("111", config);
@@ -71,7 +74,7 @@ export default {
     },
     setHist(version, fileid) {
       let url = "version/sethist?fileid=" + fileid + "&version=" + version;
-      this.common.$Get(null, url).then((data) => {
+      this.common.$Get(null, url).then(data => {
         var hit = data.body;
         this.docEditor.setHistoryData(hit);
       });
@@ -85,18 +88,23 @@ export default {
     },
     loadConfig() {
       var fileId = this.getUrlParam("fileid");
-      var ctype =this.getUrlParam("ctype");
-      let systemType=this.getUrlParam("systemType");
+      var ctype = this.getUrlParam("ctype");
+      let systemType = this.getUrlParam("systemType");
       let url =
-        "file/config?editType=" + ctype + "&systemType="+systemType+"&fileid=" + fileId;
-      this.common.$Get(null, url).then((data) => {
+        "file/config?editType=" +
+        ctype +
+        "&systemType=" +
+        systemType +
+        "&fileid=" +
+        fileId;
+      this.common.$Get(null, url).then(data => {
         let config = data.body;
         config.events = {
           onAppReady: this.onAppReady,
           onDocumentStateChange: this.onDocumentStateChange,
           onRequestEditRights: this.onRequestEditRights,
           onError: this.onError,
-          onOutdatedVersion: this.onOutdatedVersion,
+          onOutdatedVersion: this.onOutdatedVersion
         };
         config.events["onRequestHistoryClose "] = function() {
           document.location.reload();
@@ -111,13 +119,13 @@ export default {
         // eslint-disable-next-line no-undef
         this.docEditor = new DocsAPI.DocEditor("iframeEditor", config);
       });
-    },
+    }
   },
   created: function() {
     this.loadConfig();
-  },
+  }
 };
 </script>
 <style lang="stylus" scoped>
-@import url("~@/assets/Home/home.css");
+@import url('~@/assets/Home/home.css');
 </style>

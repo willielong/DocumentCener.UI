@@ -88,17 +88,33 @@
                         : 'primary'
                     "
                     @click="linkData(scope.row)"
+                  >
+                    <svg
+                      class="icon"
+                      aria-hidden="true"
+                      v-if="scope.row.filetype == 1"
                     >
-                    <svg class="icon" aria-hidden="true" v-if=" scope.row.filetype == 1">
                       <use xlink:href="#icon-ECEL"></use>
                     </svg>
-                    <svg class="icon" aria-hidden="true" v-if=" scope.row.filetype == 2">
+                    <svg
+                      class="icon"
+                      aria-hidden="true"
+                      v-if="scope.row.filetype == 2"
+                    >
                       <use xlink:href="#icon-PPT"></use>
                     </svg>
-                    <svg class="icon" aria-hidden="true" v-if=" scope.row.filetype == 0">
+                    <svg
+                      class="icon"
+                      aria-hidden="true"
+                      v-if="scope.row.filetype == 0"
+                    >
                       <use xlink:href="#icon-WORD"></use>
                     </svg>
-                    <svg class="icon" aria-hidden="true" v-if=" scope.row.filetype >2">
+                    <svg
+                      class="icon"
+                      aria-hidden="true"
+                      v-if="scope.row.filetype > 2"
+                    >
                       <use xlink:href="#icon-TET"></use>
                     </svg>
                     {{ scope.row.cnname }}</el-link
@@ -142,7 +158,7 @@
                         icon="el-icon-download"
                         plain
                         v-if="scope.row.filetype != 3"
-                         @click="downloaddoc(scope.row)"
+                        @click="downloaddoc(scope.row)"
                         >下载文件</el-link
                       ><br v-if="scope.row.filetype != 3" />
                       <el-link
@@ -270,7 +286,7 @@ export default {
       pid: 0,
       id: 0,
       visablePage: false,
-      loading: true,
+      loading: true
     };
   },
   methods: {
@@ -350,7 +366,7 @@ export default {
         this.orgtype +
         "&pid=" +
         this.pid;
-      this.common.$Get(null, url).then((data) => {
+      this.common.$Get(null, url).then(data => {
         this.tableData = data.body;
       });
     },
@@ -358,8 +374,7 @@ export default {
       if (data.filetype === 3) {
         this.loadData(true, data.orgtype, data.orgid, data.path, data.id, 0);
       } else {
-        window.location.href =
-          "/docedit?fileid=" + data.id + "&ctype=2&systemType=0";
+        window.open("/docedit?fileid=" + data.id + "&ctype=2&systemType=0");
       }
     },
     deldata(data) {
@@ -370,10 +385,10 @@ export default {
       this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       })
         .then(() => {
-          this.common.$Delete(null, url).then((data) => {
+          this.common.$Delete(null, url).then(data => {
             let mssg =
               data.message == undefined || data.message == ""
                 ? "成功!"
@@ -386,25 +401,23 @@ export default {
         .catch(() => {
           this.$message({
             type: "info",
-            message: "已取消删除",
+            message: "已取消删除"
           });
         });
     },
     ///查看视图
     viewDocmnet(data) {
-      window.location.href =
-        "/docedit?fileid=" + data.id + "&ctype=2&systemType=2";
+      window.open("/docedit?fileid=" + data.id + "&ctype=2&systemType=2");
     },
     ///查看视图
     editDocmnet(data) {
-      window.location.href =
-        "/docedit?fileid=" + data.id + "&ctype=0&systemType=0";
+      window.open("/docedit?fileid=" + data.id + "&ctype=0&systemType=0");
     },
-    downloaddoc(item){
-      window.location.href=item.fileurl;
+    downloaddoc(item) {
+      window.location.href = item.fileurl;
     }
   },
-  components: { EdFolderVue, EdFilesVue },
+  components: { EdFolderVue, EdFilesVue }
 };
 </script>
 <style scoped>
