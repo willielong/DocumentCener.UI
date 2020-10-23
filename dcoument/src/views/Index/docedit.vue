@@ -157,5 +157,5 @@ export default {
 };
 </script>
 <style lang="stylus" scoped>
-@import url('~@/assets/Home/home.css');
+@import url('~@/assets/css/home.css');
 </style>

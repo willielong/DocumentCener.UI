@@ -65,7 +65,7 @@
   </div>
 </template>
 <style lang="stylus" scoped>
-@import url("~@/assets/Index/Index.css");
+@import url("~@/assets/css/Index.css");
 </style>
 <script>
 export default {

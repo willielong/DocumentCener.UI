@@ -35,7 +35,7 @@
   </div>
 </template>
 <style lang="stylus">
-@import url('~@/assets/Index/Index.css');
+@import url('~@/assets/css/Index.css');
 </style>
 <script>
 export default {
