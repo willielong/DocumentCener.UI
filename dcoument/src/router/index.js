@@ -7,12 +7,12 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/index',
+    path: '/',
     name: 'Index',
     component: index
   },
   {
-    path: '/',
+    path: '/sign',
     name: 'Sign in',
     component: sign
   },
@@ -39,6 +39,14 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/Index/docedit.vue')
+    
+  },{
+    path: '/index',
+    name: '主页',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/Home/Index.vue')
     
   },]
 

@@ -201,7 +201,7 @@
                         ? 'success'
                         : 'primary'
                     "
-                    >{{ scope.row.cnname }}</el-link
+                    >{{ scope.row.enname }}</el-link
                   >
                 </template>
               </el-table-column>
