@@ -2,13 +2,14 @@
   <div class="row">
     <div class="col">
       <div>
-        <ul class="list-group  list-group-flush">
+        <ul class="list-group  list-group-flush .list_group" id="list_group">
           <li class="list-group-item text-alg">
             <el-button-group v-if="visablePage">
               <el-button
                 type="primary"
                 icon="el-icon-folder-add"
                 @click="editfolder"
+                size="small"
                 >新建文件夹</el-button
               >
               <el-tooltip
@@ -54,7 +55,10 @@
                     WORD</el-link
                   >
                 </div>
-                <el-button type="primary" icon="el-icon-document-add"
+                <el-button
+                  type="primary"
+                  size="small"
+                  icon="el-icon-document-add"
                   >新建文件</el-button
                 >
               </el-tooltip>
@@ -123,7 +127,13 @@
                     <div slot="content">
                       <el-link
                         class="el-link-m3"
-                        type="primary"
+                        :type="
+                          scope.row.filetype == 2
+                            ? 'danger'
+                            : scope.row.filetype == 1
+                            ? 'success'
+                            : 'primary'
+                        "
                         :underline="false"
                         icon="el-icon-edit"
                         plain
@@ -132,7 +142,13 @@
                       ><br />
                       <el-link
                         class="el-link-m3"
-                        type="primary"
+                        :type="
+                          scope.row.filetype == 2
+                            ? 'danger'
+                            : scope.row.filetype == 1
+                            ? 'success'
+                            : 'primary'
+                        "
                         :underline="false"
                         icon="el-icon-view"
                         plain
@@ -143,7 +159,13 @@
                       ><br v-if="scope.row.filetype != 3" />
                       <el-link
                         class="el-link-m3"
-                        type="primary"
+                        :type="
+                          scope.row.filetype == 2
+                            ? 'danger'
+                            : scope.row.filetype == 1
+                            ? 'success'
+                            : 'primary'
+                        "
                         :underline="false"
                         icon="el-icon-edit"
                         plain
@@ -153,7 +175,13 @@
                       ><br v-if="scope.row.filetype != 3" />
                       <el-link
                         class="el-link-m3"
-                        type="primary"
+                        :type="
+                          scope.row.filetype == 2
+                            ? 'danger'
+                            : scope.row.filetype == 1
+                            ? 'success'
+                            : 'primary'
+                        "
                         :underline="false"
                         icon="el-icon-download"
                         plain
@@ -163,7 +191,13 @@
                       ><br v-if="scope.row.filetype != 3" />
                       <el-link
                         class="el-link-m3"
-                        type="primary"
+                        :type="
+                          scope.row.filetype == 2
+                            ? 'danger'
+                            : scope.row.filetype == 1
+                            ? 'success'
+                            : 'primary'
+                        "
                         :underline="false"
                         icon="el-icon-delete"
                         plain
@@ -286,7 +320,7 @@ export default {
       pid: 0,
       id: 0,
       visablePage: false,
-      loading: true
+      loading: true,
     };
   },
   methods: {
@@ -366,7 +400,7 @@ export default {
         this.orgtype +
         "&pid=" +
         this.pid;
-      this.common.$Get(null, url).then(data => {
+      this.common.$Get(null, url).then((data) => {
         this.tableData = data.body;
       });
     },
@@ -385,10 +419,10 @@ export default {
       this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
       })
         .then(() => {
-          this.common.$Delete(null, url).then(data => {
+          this.common.$Delete(null, url).then((data) => {
             let mssg =
               data.message == undefined || data.message == ""
                 ? "成功!"
@@ -401,7 +435,7 @@ export default {
         .catch(() => {
           this.$message({
             type: "info",
-            message: "已取消删除"
+            message: "已取消删除",
           });
         });
     },
@@ -415,9 +449,9 @@ export default {
     },
     downloaddoc(item) {
       window.location.href = item.fileurl;
-    }
+    },
   },
-  components: { EdFolderVue, EdFilesVue }
+  components: { EdFolderVue, EdFilesVue },
 };
 </script>
 <style scoped>
@@ -448,5 +482,8 @@ export default {
   vertical-align: -0.15em;
   fill: currentColor;
   overflow: hidden;
+}
+.list_group {
+  border-right: 1px solid #eeeeee;
 }
 </style>

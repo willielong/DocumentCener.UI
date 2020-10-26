@@ -11,26 +11,21 @@ const routes = [
     component: index
   },
   {
-    path: '/docedit',
-    name: 'document-edit',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/doc/docedit.vue')
-    
-  },{
     path: '',
     name: '主页',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/Home/Index.vue'),
-    children:[{
-      path:"/home",
-      name:"/home",
+    children: [{
+      path: "/home",
+      name: "/home",
       component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue')
+    }, {
+      path: "/docedit",
+      name: "document-edit",
+      component: () => import(/* webpackChunkName: "about" */ '../views/files/docedit.vue')
     }]
-    
   },]
 
 const router = new VueRouter({
