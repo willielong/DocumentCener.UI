@@ -1,5 +1,5 @@
 <template>
-  <form class="main_div">
+  <form class="">
     <div class="shadow bg-white rounded Shead_div">
       <div class="row">
         <div class="col">

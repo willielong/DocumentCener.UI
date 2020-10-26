@@ -25,7 +25,7 @@
       </el-menu-item>
     </el-menu>
     <div class="wl_body_widen" id="wl_body_widen" :style="rstyle">
- 
+      <router-view></router-view>
     </div>
   </div>
 </template>
