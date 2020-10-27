@@ -25,6 +25,9 @@ const http = {
           type: type
         });
   },
+  $Download: function(model, url, filename) {
+    return req.$download(model, url, filename);
+  },
   api:req.api,
 };
 export default http;

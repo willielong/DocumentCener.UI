@@ -1,7 +1,7 @@
 <template>
   <form class="">
     <remote-script
-      src="http://192.168.0.105:801/web-apps/apps/api/documents/api.js"
+      src="http://10.55.165.50:85/web-apps/apps/api/documents/api.js"
     ></remote-script>
       <div class="row">
         <div class="col source el-row">
@@ -23,7 +23,7 @@
       </div>
   </form>
 </template>
-<script src="http://192.168.0.105:801/web-apps/apps/api/documents/api.js"></script>
+<script src="http://10.55.165.50:85/web-apps/apps/api/documents/api.js"></script>
 <script>
 import $ from "jquery";
 import "@/comm/importJS.js";

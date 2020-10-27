@@ -320,7 +320,7 @@ export default {
       pid: 0,
       id: 0,
       visablePage: false,
-      loading: true,
+      loading: true
     };
   },
   methods: {
@@ -400,7 +400,7 @@ export default {
         this.orgtype +
         "&pid=" +
         this.pid;
-      this.common.$Get(null, url).then((data) => {
+      this.common.$Get(null, url).then(data => {
         this.tableData = data.body;
       });
     },
@@ -419,10 +419,10 @@ export default {
       this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       })
         .then(() => {
-          this.common.$Delete(null, url).then((data) => {
+          this.common.$Delete(null, url).then(data => {
             let mssg =
               data.message == undefined || data.message == ""
                 ? "成功!"
@@ -435,7 +435,7 @@ export default {
         .catch(() => {
           this.$message({
             type: "info",
-            message: "已取消删除",
+            message: "已取消删除"
           });
         });
     },
@@ -448,10 +448,11 @@ export default {
       window.open("/docedit?fileid=" + data.id + "&ctype=0&systemType=0");
     },
     downloaddoc(item) {
-      window.location.href = item.fileurl;
-    },
+      let url = "download";
+      this.common.$Download({ autoid: item.id }, url,item.cnname+"."+item.ext)
+    }
   },
-  components: { EdFolderVue, EdFilesVue },
+  components: { EdFolderVue, EdFilesVue }
 };
 </script>
 <style scoped>
