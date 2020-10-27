@@ -19,12 +19,16 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/Home/Index.vue'),
     children: [{
       path: "/home",
-      name: "/home",
+      name: "文档中心",
       component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue')
     }, {
       path: "/docedit",
       name: "document-edit",
       component: () => import(/* webpackChunkName: "about" */ '../views/files/docedit.vue')
+    }, {
+      path: "/org",
+      name: "组织管理",
+      component: () => import(/* webpackChunkName: "about" */ '../views/Organization/organization.vue')
     }]
   },]
 

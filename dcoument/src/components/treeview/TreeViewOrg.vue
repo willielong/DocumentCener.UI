@@ -1,12 +1,5 @@
 <template>
-  <div class="tree">
-    <EditCompany ref="EditCompany" @add-comment="appendComment"></EditCompany>
-    <EdDepartmentVue
-      ref="EdDepartmentVue"
-      @add-comment="appendComment"
-    ></EdDepartmentVue>
-    <EdPersonVue ref="EdPersonVue" @add-comment="appendComment"></EdPersonVue>
-    <EdFolderVue ref="EdFolderVue" @ref-folder="rffolder"></EdFolderVue>
+  <div id="TreeViewOrg">
     <ul class="list-group list-group-flush" id="list_group">
       <li class="list-group-item" style="height:100%">
         <el-tree
@@ -81,43 +74,6 @@
                       <i class="el-icon-delete m5"></i>删除部门</el-link
                     ><br />
                   </div>
-                  <div v-if="data.type == 1">
-                    <el-link
-                      type="warning"
-                      :underline="false"
-                      @click="dialoPeron(node, 0)"
-                    >
-                      <i class="el-icon-circle-plus m5"></i
-                      >添加人员信息</el-link
-                    ><br />
-                  </div>
-                  <div v-if="data.type == -1">
-                    <el-link
-                      type="warning"
-                      :underline="false"
-                      @click="dialoPeron(node, 1)"
-                    >
-                      <i class="el-icon-edit m5"></i>编辑人员信息</el-link
-                    ><br />
-                  </div>
-                  <div v-if="data.type == -1">
-                    <el-link
-                      type="danger"
-                      :underline="false"
-                      @click="del(node)"
-                    >
-                      <i class="el-icon-delete m5"></i>删除人员</el-link
-                    ><br />
-                  </div>
-                  <div>
-                    <el-link
-                      type="primary"
-                      :underline="false"
-                      @click="dialofolder(node)"
-                    >
-                      <i class="el-icon-folder-add m5"></i>添加文件夹</el-link
-                    ><br />
-                  </div>
                 </div>
                 <span>{{ node.label }}</span>
               </el-tooltip>
@@ -126,17 +82,26 @@
         </el-tree>
       </li>
     </ul>
+    <EditCompayVue
+      ref="EditCompany"
+      @add-comment="expandedTreeNode"
+    ></EditCompayVue>
+    <EdDepartmentVue
+      ref="EdDepartmentVue"
+      @add-comment="expandedTreeNode"
+    ></EdDepartmentVue>
   </div>
 </template>
-
 <script>
-import EditCompany from "@/components/EditCompay";
-import EdDepartmentVue from "./EdDepartment.vue";
-import EdPersonVue from "./EdPerson.vue";
-import EdFolderVue from "./EdFolder.vue";
+import EdDepartmentVue from "../EdDepartment.vue";
+import EditCompayVue from "../EditCompay.vue";
 import $ from "jquery";
 export default {
-  cnode: null,
+  components: {
+    EdDepartmentVue,
+    EditCompayVue,
+  },
+  treenode: null,
   data() {
     return {
       props: {
@@ -148,12 +113,6 @@ export default {
       count: 1,
       loading: true,
     };
-  },
-  components: {
-    EditCompany,
-    EdDepartmentVue,
-    EdPersonVue,
-    EdFolderVue,
   },
   methods: {
     handleCheckChange(node) {
@@ -185,7 +144,7 @@ export default {
     dialo(node, contrall) {
       ///新增公司
       if (contrall === 0) {
-        this.cnode = node;
+        this.treenode = node;
         this.$refs.EditCompany.dialogVisible(
           0,
           "添加新公司",
@@ -193,7 +152,7 @@ export default {
           node.data.id
         );
       } else {
-        this.cnode = node.parent;
+        this.treenode = node.parent;
         this.$refs.EditCompany.dialogVisible(
           node.data.id,
           "编辑公司",
@@ -213,7 +172,7 @@ export default {
       }
       ///新增公司
       if (contrall === 0) {
-        this.cnode = node;
+        this.treenode = node;
         this.$refs.EdDepartmentVue.dialogVisible(
           0,
           "添加部门",
@@ -222,7 +181,7 @@ export default {
           unitid
         );
       } else {
-        this.cnode = node.parent;
+        this.treenode = node.parent;
         this.$refs.EdDepartmentVue.dialogVisible(
           node.data.id,
           "编辑部门",
@@ -232,51 +191,14 @@ export default {
         );
       }
     },
-    ///人员
-    dialoPeron(node, contrall) {
-      ///新增公司
-      if (contrall === 0) {
-        this.cnode = node;
-        this.$refs.EdPersonVue.dialogVisible(
-          0,
-          "添加人员信息",
-          true,
-          node.data.id
-        );
-      } else {
-        this.cnode = node.parent;
-        this.$refs.EdPersonVue.dialogVisible(
-          node.data.id,
-          "编辑人员信息",
-          true,
-          node.data.pid
-        );
-      }
-    },
-
-    dialofolder(node) {
-      ///新增文件夹
-      this.cnode = node;
-      this.$refs.EdFolderVue.dialogVisible(
-        0,
-        "创建文件夹",
-        true,
-        0,
-        node.data.id,
-        node.data.type,
-        ""
-      );
-    },
-    appendComment(type) {
+    ///打开节点
+    expandedTreeNode(type) {
       if (this.cnode.expanded || type !== "new") {
         this.cnode.loaded = false;
         this.cnode.collapse();
         // 主动调用展开节点方法，重新查询该节点下的所有子节点
         this.cnode.expand();
       }
-    },
-    rffolder() {
-      this.handleCheckChange(this.cnode);
     },
     del(node) {
       this.cnode = node.parent;
@@ -286,11 +208,6 @@ export default {
       if (node.data.type === 1) {
         url = "organization/delete/" + node.data.id;
         unt = "部门";
-      }
-      ///人员
-      else if (node.data.type === -1) {
-        url = "employee/delete/" + node.data.id;
-        unt = "员工";
       }
       this.$confirm("此操作将永久删除该" + unt + ", 是否继续?", "提示", {
         confirmButtonText: "确定",
@@ -305,7 +222,7 @@ export default {
                 : data.message;
 
             this.common.$mxAlert(mssg, "success");
-            this.appendComment();
+            this.expandedTreeNode();
           });
         })
         .catch(() => {
@@ -327,5 +244,6 @@ export default {
 }
 #list_group {
   border-right: 1px solid #eeeeee;
+  height: 100%;
 }
 </style>
