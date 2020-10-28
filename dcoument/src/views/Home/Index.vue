@@ -3,7 +3,7 @@
     <nav class="navbar">
       <div class="navbar-header" style="padding-left:0px">
         <a href="#" class="menu-toggle" @click="isCollapses()"
-          ><i class="zmdi zmdi-menu"></i
+          ><i :class="menuicon"></i
         ></a>
       </div>
     </nav>
@@ -84,6 +84,7 @@ export default {
       rstyle: "",
       activicateIndex: "1",
       linkUrl: "/home",
+      menuicon: "el-icon-s-unfold"
     };
   },
   methods: {
@@ -92,7 +93,7 @@ export default {
         case "1":
           {
             this.activicateIndex = "1";
-            this.linkUrl = "/home";
+            this.linkUrl = "/file";
           }
           break;
         case "2":
@@ -101,10 +102,16 @@ export default {
             this.linkUrl = "/org";
           }
           break;
+        case "3":
+          {
+            this.activicateIndex = "3";
+            this.linkUrl = "/personal";
+          }
+          break;
         default:
           {
             this.activicateIndex = "1";
-            this.linkUrl = "/home";
+            this.linkUrl = "/file";
           }
           break;
       }
@@ -112,28 +119,36 @@ export default {
         document.getElementById("c-link").click();
         let h = window.outerHeight - 111 + "px";
         this.height = "height:" + h;
-        this.rstyle = "height:" + (window.outerHeight - 111) + "px";    
+        this.rstyle = "height:" + (window.outerHeight - 111) + "px";
       }, 100);
     },
     isCollapses() {
       if (this.isCollapse) {
         this.isCollapse = false;
+        this.menuicon = "el-icon-s-fold";
       } else {
         this.isCollapse = true;
+        this.menuicon = "el-icon-s-unfold";
       }
       let h = window.outerHeight - 111 + "px";
       this.height = "height:" + h;
       this.rstyle = "height:" + (window.outerHeight - 111) + "px";
-    },
+    }
   },
-  components: { banner },
+  components: { banner }
 };
 
 $(function() {
   $("#el-menu").height($(window).height() - 40 + "px");
   $("#wl_body_widen").height($(window).height() - 40 + "px");
+});
+//窗口大小改变时，执行
+$(window).resize(function() {
+  //执行代码块
+  $("#el-menu").height($(window).height() - 40 + "px");
+  $("#wl_body_widen").height($(window).height() - 40 + "px");
   if ($("#list_group") != undefined) {
-    $("#list_group").height($(window).height() - 290);
+    $("#list_group").height($(window).height() - 240);
   }
 });
 </script>

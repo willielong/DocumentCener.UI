@@ -81,7 +81,7 @@ export default {
         .then(data => {
           window.localStorage.removeItem("account_token");
           window.localStorage.setItem("account_token", data.body.access_token);
-          window.location.href = "/home";
+          window.location.href = "/file";
           ///记住我
           if (remembers) {
             window.localStorage.setItem(

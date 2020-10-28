@@ -16,7 +16,7 @@
         <div class="col el-row" style="margin:0px;">
           <TreeViewOrgVue @tr-node-clicke="tr_node_clicke"></TreeViewOrgVue>
         </div>
-        <div class="col-10" style="margin:0px;">
+        <div class="col-9" style="margin:0px;">
         </div>
       </div>
   </form>

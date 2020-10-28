@@ -51,7 +51,7 @@ export default {
   color: #475669;
   font-size: 18px;
   opacity: 0.75;
-  line-height: 300px;
+  line-height: 120px;
   margin: 0;
 }
 
@@ -64,22 +64,22 @@ export default {
 }
 .el-carousel__container {
   position: relative;
-  height: 200px;
+  height: 120px;
 }
 .el-carousel__item h3 {
   color: #475669;
   font-size: 18px;
   opacity: 0.75;
-  line-height: 200px;
+  line-height: 120px;
   margin: 0;
 }
 .image {
   color: #475669;
   font-size: 18px;
   opacity: 0.75;
-  line-height: 200px;
+  line-height: 120px;
   width: 100%;
   margin: 0;
-  height: 200px;
+  height: 120px;
 }
 </style>

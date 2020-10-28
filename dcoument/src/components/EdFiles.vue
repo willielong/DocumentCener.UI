@@ -111,7 +111,7 @@ export default {
         creator: 1,
         modifier: 1,
         creatdate: new Date(),
-        modifdate: new Date(),
+        modifdate: new Date()
       },
       codedisable: false,
       formLabelWidth: "120px",
@@ -125,16 +125,16 @@ export default {
           { required: true, validator: checkSequence, tigger: "blur" },
           {
             pattern: /(^[0-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/,
-            message: "请输入正确格式,可保留两位小数",
-          },
-        ],
-      },
+            message: "请输入正确格式,可保留两位小数"
+          }
+        ]
+      }
     };
 
     // eslint-disable-next-line no-unreachable
   },
   methods: {
-    dialogVisible(id, title, dialogFormVisible, orgtype,floderid,ext) {
+    dialogVisible(id, title, dialogFormVisible, orgtype, floderid, ext) {
       this.form.autoid = id;
       this.title = title;
       this.dialogFormVisible = dialogFormVisible;
@@ -144,19 +144,20 @@ export default {
         this.InitEmpty();
         this.form.folderid = floderid;
         this.form.filetype = orgtype;
-        this.form.ext=ext;
+        this.form.ext = ext;
       }
-      this.$refs["form"].resetFields();
+      if (this.$refs["form"]!= undefined)
+        this.$refs["form"].resetFields();
     },
     submitForm() {
-      this.$refs["form"].validate((valid) => {
+      this.$refs["form"].validate(valid => {
         if (valid) {
           var url = "file/add";
           if (this.form.autoid !== 0) {
             url = "file/update";
           }
           this.form.sequence = parseFloat(this.form.sequence);
-          this.common.$Post(this.form, url).then((data) => {
+          this.common.$Post(this.form, url).then(data => {
             let mssg =
               data.message == undefined || data.message == ""
                 ? "成功!"
@@ -172,7 +173,7 @@ export default {
     InitData() {
       this.codedisable = true;
       var url = "file/query/" + this.form.autoid;
-      this.common.$Get(null, url).then((data) => {
+      this.common.$Get(null, url).then(data => {
         this.form = data.body;
       });
     },
@@ -189,20 +190,20 @@ export default {
         path: "",
         folderpath: "",
         size: 0,
-        currentVersion:0,
+        currentVersion: 0,
         enable: true,
         sequence: 0,
         orgid: 0,
         creator: 1,
         modifier: 1,
         creatdate: new Date(),
-        modifdate: new Date(),
+        modifdate: new Date()
       };
       this.codedisable = false;
     },
     handleClose() {
       this.dialogFormVisible = false;
-    },
-  },
+    }
+  }
 };
 </script>

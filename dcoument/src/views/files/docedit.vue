@@ -1,32 +1,27 @@
 <template>
   <form class="">
     <remote-script
-      src="http://192.168.0.105:801/web-apps/apps/api/documents/api.js"
+      src="http://10.55.165.50:85/web-apps/apps/api/documents/api.js"
     ></remote-script>
-      <div class="row">
-        <div class="col source el-row">
-          <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="/home">首页</a></li>
-              <li class="breadcrumb-item active" aria-current="page">
-                编辑
-              </li>
-            </ol>
-          </nav>
+     <div class="row">
+        <div class="col el-row">
+          <banner></banner>
         </div>
       </div>
       <div id="iframeEditor_div"
         class="row"
-        style="margin-left:0px;margin-right:0px;margin-top:-15px"
+        style="margin:0px"
       >
         <div id="iframeEditor"></div>
       </div>
   </form>
 </template>
-<script src="http://192.168.0.105:801/web-apps/apps/api/documents/api.js"></script>
+<script src="http://10.55.165.50:85/web-apps/apps/api/documents/api.js"></script>
+
 <script>
 import $ from "jquery";
 import "@/comm/importJS.js";
+import banner from "@/components/banner.vue";
 import httpbaseVue from "../../comm/httpbase.vue";
 
 var docEditor;
@@ -145,11 +140,10 @@ function setHist(version, fileid) {
 }
 export default {
   name: "docedit",
-  components: {  }
+  components: { banner }
 };
 $(function(){
-$("#iframeEditor_div").height($(window).height()-90);
-$(".el-carousel").attr("style","display:none");
+$("#iframeEditor_div").height($(window).height()-120);
 })
 </script>
 <style lang="stylus" scoped>

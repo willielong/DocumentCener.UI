@@ -39,7 +39,11 @@
           :label-width="formLabelWidth"
           prop="orgcode"
         >
-          <el-input v-model="form.orgcode" autocomplete="off" :disabled="codedisable"></el-input>
+          <el-input
+            v-model="form.orgcode"
+            autocomplete="off"
+            :disabled="codedisable"
+          ></el-input>
         </el-form-item>
         <el-form-item
           label="部门领导"
@@ -171,10 +175,10 @@ export default {
         modifier: 1,
         creatdate: new Date(),
         modifdate: new Date(),
-        isvirorg:true,
-        istree:true
+        isvirorg: true,
+        istree: true
       },
-      codedisable:false,
+      codedisable: false,
       formLabelWidth: "120px",
       err: "",
       id: 0, ///公司ID
@@ -184,25 +188,23 @@ export default {
       from_rules: {
         cnnme: [{ required: true, validator: checkCnname, trigger: "blur" }],
         enname: [{ required: true, validator: checkEnname, trigger: "blur" }],
-        orgcode: [
-          { required: true, validator: checkorgcode, trigger: "blur" },
-        ],
+        orgcode: [{ required: true, validator: checkorgcode, trigger: "blur" }],
         head: [{ required: true, validator: checkHead, trigger: "blur" }],
         c_head: [{ required: true, validator: checkCHead, trigger: "blur" }],
         sequence: [
           { required: true, validator: checkSequence, tigger: "blur" },
           {
             pattern: /(^[0-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/,
-            message: "请输入正确格式,可保留两位小数",
-          },
-        ],
-      },
+            message: "请输入正确格式,可保留两位小数"
+          }
+        ]
+      }
     };
 
     // eslint-disable-next-line no-unreachable
   },
   methods: {
-    dialogVisible(id, title, dialogFormVisible, prId,unitId) {
+    dialogVisible(id, title, dialogFormVisible, prId, unitId) {
       this.id = id;
       this.title = title;
       this.dialogFormVisible = dialogFormVisible;
@@ -211,12 +213,13 @@ export default {
       } else {
         this.InitEmpty();
       }
-        this.form.untid=unitId;
+      this.form.untid = unitId;
       this.form.parentId = prId;
-      this.$refs["form"].resetFields();
+      if (this.$refs["form"] != undefined)
+        this.$refs["form"].resetFields();
     },
     submitForm() {
-      this.$refs["form"].validate((valid) => {
+      this.$refs["form"].validate(valid => {
         if (valid) {
           var url = "organization/add";
           let type = "new";
@@ -227,7 +230,7 @@ export default {
           this.form.parentId = parseInt(this.form.parentId);
           this.form.head = parseInt(this.form.head);
           this.form.sequence = parseFloat(this.form.sequence);
-          this.common.$Post(this.form, url).then((data) => {
+          this.common.$Post(this.form, url).then(data => {
             let mssg =
               data.message == undefined || data.message == ""
                 ? "成功!"
@@ -241,9 +244,9 @@ export default {
       });
     },
     InitData() {
-        this.codedisable=true;
+      this.codedisable = true;
       var url = "organization/query/" + this.id;
-      this.common.$Get(null, url).then((data) => {
+      this.common.$Get(null, url).then(data => {
         this.form = data.body;
       });
     },
@@ -263,14 +266,14 @@ export default {
         modifier: 1,
         creatdate: new Date(),
         modifdate: new Date(),
-        isvirorg:true,
-        istree:true
+        isvirorg: true,
+        istree: true
       };
-       this.codedisable=false;
+      this.codedisable = false;
     },
     handleClose() {
       this.dialogFormVisible = false;
-    },
-  },
+    }
+  }
 };
 </script>

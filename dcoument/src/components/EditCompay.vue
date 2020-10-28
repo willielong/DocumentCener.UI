@@ -39,7 +39,11 @@
           :label-width="formLabelWidth"
           prop="unitcode"
         >
-          <el-input v-model="form.unitcode" autocomplete="off" :disabled="codedisable"></el-input>
+          <el-input
+            v-model="form.unitcode"
+            autocomplete="off"
+            :disabled="codedisable"
+          ></el-input>
         </el-form-item>
         <el-form-item
           label="公司领导"
@@ -169,8 +173,9 @@ export default {
         creator: 1,
         modifier: 1,
         creatdate: new Date(),
-        modifdate: new Date(),
-      },codedisable:false,
+        modifdate: new Date()
+      },
+      codedisable: false,
       formLabelWidth: "120px",
       err: "",
       id: 0, ///公司ID
@@ -181,7 +186,7 @@ export default {
         cnnme: [{ required: true, validator: checkCnname, trigger: "blur" }],
         enname: [{ required: true, validator: checkEnname, trigger: "blur" }],
         unitcode: [
-          { required: true, validator: checkUnitcode, trigger: "blur" },
+          { required: true, validator: checkUnitcode, trigger: "blur" }
         ],
         head: [{ required: true, validator: checkHead, trigger: "blur" }],
         c_head: [{ required: true, validator: checkCHead, trigger: "blur" }],
@@ -189,10 +194,10 @@ export default {
           { required: true, validator: checkSequence, tigger: "blur" },
           {
             pattern: /(^[0-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/,
-            message: "请输入正确格式,可保留两位小数",
-          },
-        ],
-      },
+            message: "请输入正确格式,可保留两位小数"
+          }
+        ]
+      }
     };
 
     // eslint-disable-next-line no-unreachable
@@ -209,10 +214,11 @@ export default {
         this.InitEmpty();
       }
       this.form.parentId = prId;
-      this.$refs["form"].resetFields();
+      if (this.$refs["form"]!= undefined)
+        this.$refs["form"].resetFields();
     },
     submitForm() {
-      this.$refs["form"].validate((valid) => {
+      this.$refs["form"].validate(valid => {
         if (valid) {
           var url = "company/add";
           let type = "new";
@@ -223,7 +229,7 @@ export default {
           this.form.parentId = parseInt(this.form.parentId);
           this.form.head = parseInt(this.form.head);
           this.form.sequence = parseFloat(this.form.sequence);
-          this.common.$Post(this.form, url).then((data) => {
+          this.common.$Post(this.form, url).then(data => {
             let mssg =
               data.message == undefined || data.message == ""
                 ? "成功!"
@@ -237,9 +243,9 @@ export default {
       });
     },
     InitData() {
-      this.codedisable=true;
+      this.codedisable = true;
       var url = "company/query/" + this.id;
-      this.common.$Get(null, url).then((data) => {
+      this.common.$Get(null, url).then(data => {
         this.form = data.body;
       });
     },
@@ -257,13 +263,13 @@ export default {
         creator: 1,
         modifier: 1,
         creatdate: new Date(),
-        modifdate: new Date(),
+        modifdate: new Date()
       };
-      this.codedisable=false;
+      this.codedisable = false;
     },
     handleClose() {
       this.dialogFormVisible = false;
-    },
-  },
+    }
+  }
 };
 </script>

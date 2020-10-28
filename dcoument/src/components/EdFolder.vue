@@ -113,7 +113,7 @@ export default {
         creator: 1,
         modifier: 1,
         creatdate: new Date(),
-        modifdate: new Date(),
+        modifdate: new Date()
       },
       codedisable: false,
       formLabelWidth: "120px",
@@ -130,10 +130,10 @@ export default {
           { required: true, validator: checkSequence, tigger: "blur" },
           {
             pattern: /(^[0-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/,
-            message: "请输入正确格式,可保留两位小数",
-          },
-        ],
-      },
+            message: "请输入正确格式,可保留两位小数"
+          }
+        ]
+      }
     };
 
     // eslint-disable-next-line no-unreachable
@@ -152,10 +152,11 @@ export default {
         this.form.flodertype = type == -1 ? 2 : type;
         this.path = path;
       }
-      this.$refs["form"].resetFields();
+      if (this.$refs["form"] != undefined)
+        this.$refs["form"].resetFields();
     },
     submitForm() {
-      this.$refs["form"].validate((valid) => {
+      this.$refs["form"].validate(valid => {
         if (valid) {
           var url = "folder/add";
           if (this.form.autoid !== 0) {
@@ -165,7 +166,7 @@ export default {
           this.form.head = parseInt(this.form.head);
           this.form.sequence = parseFloat(this.form.sequence);
           this.form.path = this.path + "/" + this.form.cnname;
-          this.common.$Post(this.form, url).then((data) => {
+          this.common.$Post(this.form, url).then(data => {
             let mssg =
               data.message == undefined || data.message == ""
                 ? "成功!"
@@ -181,7 +182,7 @@ export default {
     InitData() {
       this.codedisable = true;
       var url = "folder/query/" + this.id;
-      this.common.$Get(null, url).then((data) => {
+      this.common.$Get(null, url).then(data => {
         this.form = data.body;
       });
     },
@@ -199,13 +200,13 @@ export default {
         creator: 1,
         modifier: 1,
         creatdate: new Date(),
-        modifdate: new Date(),
+        modifdate: new Date()
       };
       this.codedisable = false;
     },
     handleClose() {
       this.dialogFormVisible = false;
-    },
-  },
+    }
+  }
 };
 </script>

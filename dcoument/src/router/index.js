@@ -18,18 +18,22 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/Home/Index.vue'),
     children: [{
-      path: "/home",
+      path: "/file",
       name: "文档中心",
-      component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue')
-    }, {
-      path: "/docedit",
-      name: "document-edit",
-      component: () => import(/* webpackChunkName: "about" */ '../views/files/docedit.vue')
+      component: () => import(/* webpackChunkName: "about" */ '../views/files/filecenter.vue')
     }, {
       path: "/org",
       name: "组织管理",
       component: () => import(/* webpackChunkName: "about" */ '../views/Organization/organization.vue')
+    }, {
+      path: "/personal",
+      name: "员工管理",
+      component: () => import(/* webpackChunkName: "about" */ '../views/Personal/personal.vue')
     }]
+  }, {
+    path: "/docedit",
+    name: "document-edit",
+    component: () => import(/* webpackChunkName: "about" */ '../views/files/docedit.vue')
   },]
 
 const router = new VueRouter({

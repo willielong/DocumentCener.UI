@@ -99,7 +99,7 @@ import $ from "jquery";
 export default {
   components: {
     EdDepartmentVue,
-    EditCompayVue,
+    EditCompayVue
   },
   treenode: null,
   data() {
@@ -108,10 +108,10 @@ export default {
         label: "name",
         children: "children",
         type: "type",
-        class: "class",
+        class: "class"
       },
       count: 1,
-      loading: true,
+      loading: true
     };
   },
   methods: {
@@ -126,8 +126,8 @@ export default {
         type = node.data.type;
         pid = node.data.id;
       }
-      let url = "tree?type=" + type + "&pid=" + pid;
-      this.common.$Get(null, url).then((data) => {
+      let url = "tree/org?type=" + type + "&pid=" + pid;
+      this.common.$Get(null, url).then(data => {
         if (node.level === 0) {
           let res = new Object();
           res.data = data.body[0];
@@ -135,7 +135,7 @@ export default {
         }
         this.loading = false;
         if ($("#list_group") != undefined) {
-          $("#list_group").height($(window).height() - 290);
+          $("#list_group").height($(window).height() - 210);
         }
         return resolve(data.body);
       });
@@ -193,15 +193,15 @@ export default {
     },
     ///打开节点
     expandedTreeNode(type) {
-      if (this.cnode.expanded || type !== "new") {
-        this.cnode.loaded = false;
-        this.cnode.collapse();
+      if (this.treenode.expanded || type !== "new") {
+        this.treenode.loaded = false;
+        this.treenode.collapse();
         // 主动调用展开节点方法，重新查询该节点下的所有子节点
-        this.cnode.expand();
+        this.treenode.expand();
       }
     },
     del(node) {
-      this.cnode = node.parent;
+      this.treenode = node.parent;
       let unt = "单位";
       var url = "company/delete/" + node.data.id;
       ///组织
@@ -212,10 +212,10 @@ export default {
       this.$confirm("此操作将永久删除该" + unt + ", 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       })
         .then(() => {
-          this.common.$Delete(null, url).then((data) => {
+          this.common.$Delete(null, url).then(data => {
             let mssg =
               data.message == undefined || data.message == ""
                 ? "成功!"
@@ -228,11 +228,11 @@ export default {
         .catch(() => {
           this.$message({
             type: "info",
-            message: "已取消删除",
+            message: "已取消删除"
           });
         });
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>
