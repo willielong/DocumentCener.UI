@@ -219,10 +219,8 @@ export default {
       this.$refs["form"].validate(valid => {
         if (valid) {
           var url = "employee/add";
-          let type = "new";
           if (this.form.empid !== 0) {
             url = "employee/update";
-            type = "up";
           }
           this.form.sequence = parseFloat(this.form.sequence);
           this.common.$Post(this.form, url).then(data => {
@@ -233,7 +231,7 @@ export default {
 
             this.common.$mxAlert(mssg, "success");
             this.dialogFormVisible = false;
-            this.form = this.$emit("add-comment", type);
+            this.form = this.$emit("add-comment", this.form.orgid);
           });
         }
       });

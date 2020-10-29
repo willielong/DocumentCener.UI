@@ -10,6 +10,7 @@
           :expand-on-click-node="false"
           ref="tree"
           v-loading="loading"
+          :default-expanded-keys="[0,1]"
         >
           <span class="custom-tree-node" slot-scope="{ node, data }">
             <el-link
@@ -197,8 +198,9 @@ export default {
         this.treenode.loaded = false;
         this.treenode.collapse();
         // 主动调用展开节点方法，重新查询该节点下的所有子节点
-        this.treenode.expand();
+        this.treenode.expand();        
       }
+      this.form = this.$emit("tr-node-clicke",  this.treenode);
     },
     del(node) {
       this.treenode = node.parent;
