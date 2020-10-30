@@ -14,11 +14,11 @@
     </div>
     <div class="row" style="margin-top: -15px;">
       <div class="col el-row" style="margin:0px;">
-        <TreeViewOrgVue @tr-node-clicke="tr_node_clicke"></TreeViewOrgVue>
+        <TreeViewOrgVue ref="TreeViewOrgVue" @tr-node-clicke="tr_node_clicke"></TreeViewOrgVue>
       </div>
       <div class="col-9" style="margin:0px;">
         <organization-table-vue
-          ref="OrganizationTableVue"
+          ref="OrganizationTableVue" @table-Refresh="Refresh"
         ></organization-table-vue>
       </div>
     </div>
@@ -41,6 +41,9 @@ export default {
         node.data.id,
         node.data.unitid
       );
+    },
+    Refresh(key){
+      this.$refs.TreeViewOrgVue.expandedTreeNodeByKey(key);
     }
   }
 };

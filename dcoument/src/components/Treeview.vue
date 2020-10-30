@@ -142,14 +142,7 @@ export default {
   }
 };
 </script>
-<style scoped>
-.m5 {
-  margin-right: 3px;
-  cursor: pointer;
-  margin-top: 5px;
-  margin-bottom: 3px;
-}
-#list_group {
-  border-right: 1px solid #eeeeee;
-}
+<style lang="stylus" scoped>
+@import url("~@/assets/css/comm.css");
 </style>
+

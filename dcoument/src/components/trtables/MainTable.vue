@@ -308,7 +308,7 @@
 <script>
 import EdFilesVue from "../EdFiles.vue";
 import EdFolderVue from "../EdFolder.vue";
-
+import $ from "jquery"
 export default {
   data() {
     return {
@@ -325,13 +325,14 @@ export default {
   },
   methods: {
     tableRowClassName({ row, rowIndex }) {
-      if (rowIndex === 1) {
-        return "warning-row";
-      } else if (rowIndex === 3) {
-        return "success-row";
+      let sty = "";
+      if (rowIndex % 2 == 1) {
+        sty = "warning-row";
+      } else {
+        sty = "success-row";
       }
       console.log(row);
-      return "";
+      return sty;
     },
     loadData(visablefilebtn, orgtype, orgid, path, pid, id) {
       this.visablefilebtn = visablefilebtn;
@@ -402,6 +403,7 @@ export default {
         this.pid;
       this.common.$Get(null, url).then(data => {
         this.tableData = data.body;
+          $(".el-table__body-wrapper").height($(window).height() - 338);
       });
     },
     linkData(data) {

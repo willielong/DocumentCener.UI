@@ -137,6 +137,7 @@
 <script>
 import EdDepartmentVue from "../EdDepartment.vue";
 import EditCompayVue from "../EditCompay.vue";
+import $ from "jquery"
 export default {
   data() {
     return {
@@ -151,14 +152,15 @@ export default {
     };
   },
   methods: {
-    tableRowClassName({ row, rowIndex }) {
-      if (rowIndex === 1) {
-        return "warning-row";
-      } else if (rowIndex === 3) {
-        return "success-row";
+   tableRowClassName({ row, rowIndex }) {
+      let sty = "";
+      if (rowIndex % 2 == 1) {
+        sty = "warning-row";
+      } else {
+        sty = "success-row";
       }
       console.log(row);
-      return "";
+      return sty;
     },
     loadData(orgtype, id, unitid) {
       this.orgtype = orgtype;
@@ -171,12 +173,13 @@ export default {
     },
     expandedTreeNode() {
       this.loadData(this.orgtype, this.id, this.unitid);
+      this.form = this.$emit("table-Refresh", this.treenode);
     },
     DialogAddOrganization(type) {
       let data = new Object();
       data.id = 0;
       data.orgtype = type;
-      data.parentid=this.id;
+      data.parentid = this.id;
       if (this.orgtype == 0 && type == 1) {
         data.parentid = 0;
       }
@@ -206,6 +209,7 @@ export default {
       if (this.orgtype === 1) url = "organization/tables?pid=" + this.id;
       this.common.$Get(null, url).then(data => {
         this.tableData = data.body;
+          $(".el-table__body-wrapper").height($(window).height() - 338);
       });
     },
     linkData(data) {
@@ -243,36 +247,7 @@ export default {
   components: { EdDepartmentVue, EditCompayVue }
 };
 </script>
-<style scoped>
-.text-alg {
-  text-align: left;
-  padding-left: 0px;
-}
-.el-table .warning-row {
-  background: oldlace;
-}
-
-.el-table .success-row {
-  background: #f0f9eb;
-}
-.el-button--mini,
-.el-button--mini.is-round {
-  padding: 0.4px 6px;
-  margin-left: 5px;
-  margin-bottom: -5px;
-}
-.el-link-m3 {
-  margin-top: 3px;
-  margin-bottom: 3px;
-}
-.icon {
-  width: 1.1em;
-  height: 1.1em;
-  vertical-align: -0.15em;
-  fill: currentColor;
-  overflow: hidden;
-}
-.list_group {
-  border-right: 1px solid #eeeeee;
-}
+<style lang="stylus" scoped>
+@import url('~@/assets/css/comm.css');
 </style>
+

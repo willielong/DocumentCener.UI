@@ -130,7 +130,13 @@ export default {
           if (!regex.test(value)) {
             return callback(new Error("请输入英文字符、数字组成的部门编码"));
           } else {
-            callback();
+             this.common.$Get(null, "organization/getlist/" + value).then(res => {
+              if (res.body.length > 0) {
+                return callback(new Error("已存在相同的部门编码"));
+              } else {
+                callback();
+              }
+            });
           }
         }
       }

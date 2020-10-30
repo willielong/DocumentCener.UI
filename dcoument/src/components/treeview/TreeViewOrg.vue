@@ -10,7 +10,7 @@
           :expand-on-click-node="false"
           ref="tree"
           v-loading="loading"
-          :default-expanded-keys="[0,1]"
+          node-key="id"
         >
           <span class="custom-tree-node" slot-scope="{ node, data }">
             <el-link
@@ -193,14 +193,23 @@ export default {
       }
     },
     ///打开节点
-    expandedTreeNode(type) {
-      if (this.treenode.expanded || type !== "new") {
+    expandedTreeNode() {
+      if (this.treenode.expanded) {
         this.treenode.loaded = false;
         this.treenode.collapse();
         // 主动调用展开节点方法，重新查询该节点下的所有子节点
-        this.treenode.expand();        
+        this.treenode.expand();
       }
-      this.form = this.$emit("tr-node-clicke",  this.treenode);
+      this.form = this.$emit("tr-node-clicke", this.treenode);
+    },
+    expandedTreeNodeByKey(key) {
+      var node = this.$refs.tree.getNode(key);
+      if (node.expanded) {
+        node.loaded = false;
+        node.collapse();
+        // 主动调用展开节点方法，重新查询该节点下的所有子节点
+        node.expand();
+      }
     },
     del(node) {
       this.treenode = node.parent;

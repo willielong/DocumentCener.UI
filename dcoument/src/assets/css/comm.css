@@ -1,0 +1,31 @@
+.text-alg {
+    text-align: left;
+    padding-left: 0px;
+  }
+  .el-table .warning-row {
+    background: oldlace;
+  }
+  
+  .el-table .success-row {
+    background: #f0f9eb;
+  }
+  .el-button--mini,
+  .el-button--mini.is-round {
+    padding: 0.4px 6px;
+    margin-left: 5px;
+    margin-bottom: -5px;
+  }
+  .el-link-m3 {
+    margin-top: 3px;
+    margin-bottom: 3px;
+  }
+  .icon {
+    width: 1.1em;
+    height: 1.1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+  }
+  .list_group {
+    border-right: 1px solid #eeeeee;
+  }

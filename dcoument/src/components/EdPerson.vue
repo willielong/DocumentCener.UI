@@ -119,7 +119,13 @@ export default {
           if (!regex.test(value)) {
             return callback(new Error("请输入英文字符、数字组成的员工编码"));
           } else {
-            callback();
+            this.common.$Get(null, "employee/getlist/" + value).then(res => {
+              if (res.body.length > 0) {
+                return callback(new Error("已存在相同的员工编码"));
+              } else {
+                callback();
+              }
+            });
           }
         }
       }
@@ -212,8 +218,7 @@ export default {
         this.InitEmpty();
       }
       this.form.orgid = prId;
-      if (this.$refs["form"]!= undefined)
-        this.$refs["form"].resetFields();
+      if (this.$refs["form"] != undefined) this.$refs["form"].resetFields();
     },
     submitForm() {
       this.$refs["form"].validate(valid => {
