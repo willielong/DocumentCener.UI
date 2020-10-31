@@ -1,7 +1,7 @@
 <template>
   <div class="tree">
     <EdFolderVue ref="EdFolderVue" @ref-folder="rffolder"></EdFolderVue>
-    <ul class="list-group list-group-flush" >
+    <ul class="list-group list-group-flush">
       <li class="list-group-item" style="height:100%" id="list_group">
         <el-tree
           :props="props"
@@ -53,14 +53,14 @@ export default {
         label: "name",
         children: "children",
         type: "type",
-        class: "class"
+        class: "class",
       },
       count: 1,
-      loading: true
+      loading: true,
     };
   },
   components: {
-    EdFolderVue
+    EdFolderVue,
   },
   methods: {
     handleCheckChange(node) {
@@ -75,7 +75,7 @@ export default {
         pid = node.data.id;
       }
       let url = "tree?type=" + type + "&pid=" + pid;
-      this.common.$Get(null, url).then(data => {
+      this.common.$Get(null, url).then((data) => {
         if (node.level === 0) {
           let res = new Object();
           res.data = data.body[0];
@@ -119,10 +119,10 @@ export default {
       this.$confirm("此操作将永久删除该" + unt + ", 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
       })
         .then(() => {
-          this.common.$Delete(null, url).then(data => {
+          this.common.$Delete(null, url).then((data) => {
             let mssg =
               data.message == undefined || data.message == ""
                 ? "成功!"
@@ -135,14 +135,23 @@ export default {
         .catch(() => {
           this.$message({
             type: "info",
-            message: "已取消删除"
+            message: "已取消删除",
           });
         });
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="stylus" scoped>
 @import url("~@/assets/css/comm.css");
+.m5 {
+  margin-right: 3px;
+  cursor: pointer;
+  margin-top: 5px;
+  margin-bottom: 3px;
+}
+#list_group {
+  border-right: 1px solid #eeeeee;
+  height: 100%;
+}
 </style>
-

@@ -14,7 +14,7 @@
                 >添加单位</el-button
               >
               <el-button
-                type="primary"
+                type="success"
                 icon="el-icon-school"
                 @click="DialogAddOrganization(1)"
                 size="small"
@@ -67,6 +67,7 @@
                       :type="scope.row.orgtype == 0 ? 'primary' : 'success'"
                       size="mini"
                       icon="el-icon-more"
+                      plain
                       round
                     ></el-button>
                   </el-tooltip>

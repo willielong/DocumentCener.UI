@@ -218,6 +218,7 @@
                       size="mini"
                       icon="el-icon-more"
                       round
+                      plain
                     ></el-button>
                   </el-tooltip>
                 </template>

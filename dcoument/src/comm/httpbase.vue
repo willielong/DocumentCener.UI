@@ -1,7 +1,7 @@
 <script>
 import axios from "axios";
 import { Message } from "element-ui";
-const api = "http://10.55.165.50:82/api/";
+const api = "http://192.168.0.105:82/api/";
 ///创建带token的请求
 function request(paramerter) {
   var axios_instance = axios.create({

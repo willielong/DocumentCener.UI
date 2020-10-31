@@ -5,7 +5,7 @@
         <ul class="list-group  list-group-flush .list_group" id="list_group">
           <li class="list-group-item text-alg">
             <el-button
-              type="primary"
+              type="warning"
               icon="el-icon-user-solid"
               @click="DialogAddPerson()"
               size="small"
@@ -55,6 +55,7 @@
                       size="mini"
                       icon="el-icon-more"
                       round
+                      plain
                     ></el-button>
                   </el-tooltip>
                 </template>
