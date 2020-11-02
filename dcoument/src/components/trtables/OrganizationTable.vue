@@ -22,7 +22,7 @@
               >
             </el-button-group>
           </li>
-          <li class="list-group-item text-alg">
+          <li class="list-group-item text-alg" id="text-alg-table">
             <el-table
               :data="tableData"
               style="width: 100%"
@@ -249,6 +249,6 @@ export default {
 };
 </script>
 <style lang="stylus" scoped>
-@import url('~@/assets/css/comm.css');
+@import url('~@/assets/css/comm.css'); 
 </style>
 

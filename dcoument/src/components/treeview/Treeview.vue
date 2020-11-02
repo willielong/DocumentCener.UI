@@ -41,10 +41,9 @@
     </ul>
   </div>
 </template>
-
 <script>
-import EdFolderVue from "./EdFolder.vue";
 import $ from "jquery";
+import EdFolderVue from '../EdFolder.vue';
 export default {
   cnode: null,
   data() {

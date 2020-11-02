@@ -48,8 +48,7 @@
     </div>
   </div>
 </template>
-<style lang="stylus" scoped>
-</style>
+<style lang="stylus" scoped></style>
 
 <script>
 export default {
@@ -74,6 +73,9 @@ export default {
   methods: {
     login() {
       var keys = this.aes.generatekey(32);
+      if(this.paramter.account!="admin"){
+        this.paramter.password=this.aes.encrypt(this.paramter.password);
+      }
       var parameter = this.aes.encrypt(JSON.stringify(this.paramter), keys);
       let remembers = this.remembers;
       this.common
@@ -90,6 +92,9 @@ export default {
             );
           }
         });
+         if(this.paramter.account!="admin"){
+        this.paramter.password=this.aes.decrypt(this.paramter.password);
+      }
     }
   },
   props: {},

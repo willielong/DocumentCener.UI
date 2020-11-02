@@ -28,7 +28,8 @@
 <script>
 // @ is an alias to /src
 //import HelloWorld from "@/components/HelloWorld.vue";
-import Treeview from "@/components/Treeview.vue";
+import Treeview from "../../components/treeview/Treeview.vue";
+Treeview
 import MainTableVue from '../../components/trtables/MainTable.vue';
 export default {
   name: "Home",

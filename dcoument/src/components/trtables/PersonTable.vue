@@ -14,7 +14,7 @@
               >添加人员信息</el-button
             >
           </li>
-          <li class="list-group-item text-alg">
+          <li class="list-group-item text-alg" id="text-alg-table">
             <el-table
               :data="tableData"
               style="width: 100%"
@@ -39,6 +39,15 @@
                         plain
                         @click="DialogAddPerson(scope.row)"
                         >编辑</el-link
+                      ><br />
+                      <el-link
+                        class="el-link-m3"
+                        type="warning"
+                        :underline="false"
+                        icon="el-icon-connection"
+                        plain
+                        @click="RegisterAccount(scope.row)"
+                        >账号注册</el-link
                       ><br />
                       <el-link
                         class="el-link-m3"
@@ -110,11 +119,14 @@
       ref="EdPersonVue"
       @add-comment="expandedTreeNode"
     ></ed-person-vue>
+    <register-accountt-vue ref="RegisterAccounttVue"></register-accountt-vue>
   </div>
 </template>
 <script>
 import $ from "jquery";
 import EdPersonVue from "../EdPerson.vue";
+import RegisterAccounttVue from '../RegisterAccountt.vue';
+
 export default {
   data() {
     return {
@@ -187,11 +199,14 @@ export default {
             message: "已取消删除"
           });
         });
+    },
+    RegisterAccount(model){
+this.$refs.RegisterAccounttVue.dialogVisible("注册账号信息",true,model);
     }
   },
-  components: { EdPersonVue }
+  components: { EdPersonVue,RegisterAccounttVue }
 };
 </script>
 <style lang="stylus" scoped>
-@import url('~@/assets/css/comm.css');
+@import url('~@/assets/css/comm.css'); 
 </style>

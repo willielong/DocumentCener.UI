@@ -64,7 +64,7 @@
               </el-tooltip>
             </el-button-group>
           </li>
-          <li class="list-group-item text-alg">
+          <li class="list-group-item text-alg" id="text-alg-table">
             <el-table
               :data="tableData"
               style="width: 100%"
@@ -309,7 +309,7 @@
 <script>
 import EdFilesVue from "../EdFiles.vue";
 import EdFolderVue from "../EdFolder.vue";
-import $ from "jquery"
+import $ from "jquery";
 export default {
   data() {
     return {
@@ -404,7 +404,7 @@ export default {
         this.pid;
       this.common.$Get(null, url).then(data => {
         this.tableData = data.body;
-          $(".el-table__body-wrapper").height($(window).height() - 338);
+        $(".el-table__body-wrapper").height($(window).height() - 338);
       });
     },
     linkData(data) {
@@ -452,42 +452,16 @@ export default {
     },
     downloaddoc(item) {
       let url = "download";
-      this.common.$Download({ autoid: item.id }, url,item.cnname+"."+item.ext)
+      this.common.$Download(
+        { autoid: item.id },
+        url,
+        item.cnname + "." + item.ext
+      );
     }
   },
   components: { EdFolderVue, EdFilesVue }
 };
 </script>
-<style scoped>
-.text-alg {
-  text-align: left;
-  padding-left: 0px;
-}
-.el-table .warning-row {
-  background: oldlace;
-}
-
-.el-table .success-row {
-  background: #f0f9eb;
-}
-.el-button--mini,
-.el-button--mini.is-round {
-  padding: 0.4px 6px;
-  margin-left: 5px;
-  margin-bottom: -5px;
-}
-.el-link-m3 {
-  margin-top: 3px;
-  margin-bottom: 3px;
-}
-.icon {
-  width: 1.1em;
-  height: 1.1em;
-  vertical-align: -0.15em;
-  fill: currentColor;
-  overflow: hidden;
-}
-.list_group {
-  border-right: 1px solid #eeeeee;
-}
+<style lang="stylus" scoped>
+@import url('~@/assets/css/comm.css');
 </style>

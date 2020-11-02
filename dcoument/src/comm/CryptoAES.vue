@@ -4,7 +4,7 @@ const AES = {
   //随机生成指定数量的16进制key
   generatekey: function(num) {
     var library =
-      "zyxwvutsrqponlmk";
+      "zyxwvutsrqponlmkjihgfedcba123456";
     var key = "";
     for (var i = 0; i < num; i++) {
       var randomPoz = Math.floor(Math.random() * library.length);
@@ -16,7 +16,7 @@ const AES = {
   encrypt: function(word, keyStr) {
     keyStr = keyStr
       ? keyStr
-      : "zyxwvutsrqponlmk"; //判断是否存在ksy，不存在就用定义好的key
+      : "zyxwvutsrqponlmkjihgfedcba123456"; //判断是否存在ksy，不存在就用定义好的key
     var key = CryptoJS.enc.Utf8.parse(keyStr);
     var srcs = CryptoJS.enc.Utf8.parse(word);
     var encrypted = CryptoJS.AES.encrypt(srcs, key, {
@@ -29,7 +29,7 @@ const AES = {
   decrypt: function(word, keyStr) {
     keyStr = keyStr
       ? keyStr
-      : "zyxwvutsrqponlmk";
+      : "zyxwvutsrqponlmkjihgfedcba123456";
     var key = CryptoJS.enc.Utf8.parse(keyStr);
     var decrypt = CryptoJS.AES.decrypt(word, key, {
       mode: CryptoJS.mode.ECB,
