@@ -3,17 +3,14 @@
     <remote-script
       src="http://192.168.0.105:801/web-apps/apps/api/documents/api.js"
     ></remote-script>
-     <div class="row">
-        <div class="col el-row">
-          <banner></banner>
-        </div>
+    <div class="row">
+      <div class="col el-row">
+        <banner></banner>
       </div>
-      <div id="iframeEditor_div"
-        class="row"
-        style="margin:0px"
-      >
-        <div id="iframeEditor"></div>
-      </div>
+    </div>
+    <div id="iframeEditor_div" class="row" style="margin:0px">
+      <div id="iframeEditor"></div>
+    </div>
   </form>
 </template>
 <script src="http://192.168.0.105:801/web-apps/apps/api/documents/api.js"></script>
@@ -57,10 +54,16 @@ var onOutdatedVersion = function(event) {
 };
 window.onload = function() {
   var fileId = getUrlParam("fileid");
-  var ctype =  getUrlParam("ctype");
+  var ctype = getUrlParam("ctype");
   var systemType = getUrlParam("systemType");
   let url =
-    httpbaseVue.api + "file/config?editType=" + ctype + "&systemType="+systemType+"&fileid=" + fileId;
+    httpbaseVue.api +
+    "file/config?editType=" +
+    ctype +
+    "&systemType=" +
+    systemType +
+    "&fileid=" +
+    fileId;
   $.ajax({
     type: "Get",
     url: url,
@@ -71,6 +74,7 @@ window.onload = function() {
         "Authorization",
         "Bearer " + window.localStorage.getItem("account_token")
       );
+      request.setRequestHeader("x-api-version", 1.0);
     },
     success: function(data) {
       var config = data.body;
@@ -79,7 +83,7 @@ window.onload = function() {
         onDocumentStateChange: onDocumentStateChange,
         onRequestEditRights: onRequestEditRights,
         onError: onError,
-        onOutdatedVersion: onOutdatedVersion
+        onOutdatedVersion: onOutdatedVersion,
       };
       config.events["onRequestHistoryClose "] = function() {
         document.location.reload();
@@ -92,7 +96,7 @@ window.onload = function() {
         setHist(ver, fileId);
       };
       docEditor = new DocsAPI.DocEditor("iframeEditor", config);
-    }
+    },
   });
 };
 function LoadHist(fileId) {
@@ -107,11 +111,12 @@ function LoadHist(fileId) {
         "Authorization",
         "Bearer " + window.localStorage.getItem("account_token")
       );
+      request.setRequestHeader("x-api-version", 1.0);
     },
     success: function(data) {
       var hit = data.body;
       docEditor.refreshHistory(hit);
-    }
+    },
   });
 }
 function setHist(version, fileid) {
@@ -131,20 +136,21 @@ function setHist(version, fileid) {
         "Authorization",
         "Bearer " + window.localStorage.getItem("account_token")
       );
+      request.setRequestHeader("x-api-version", 1.0);
     },
     success: function(data) {
       var hit = data.body;
       docEditor.setHistoryData(hit);
-    }
+    },
   });
 }
 export default {
   name: "docedit",
-  components: { banner }
+  components: { banner },
 };
-$(function(){
-$("#iframeEditor_div").height($(window).height()-120);
-})
+$(function() {
+  $("#iframeEditor_div").height($(window).height() - 120);
+});
 </script>
 <style lang="stylus" scoped>
 @import url('~@/assets/css/home.css');
