@@ -1,7 +1,14 @@
 <script>
 import axios from "axios";
 import { Message } from "element-ui";
-const api = "http://192.168.0.105:82/api/";
+const api = "http://10.55.165.50:82/api/";
+const v2 = 2.0;
+const v1 = 1.0;
+const currversion = 2.0;
+let version;
+function setVersion(ver) {
+  version = ver;
+}
 ///创建带token的请求
 function request(paramerter) {
   var axios_instance = axios.create({
@@ -18,7 +25,8 @@ function request(paramerter) {
     headers: {
       "Content-Type": paramerter.contentType,
       "Data-Type": paramerter.dataType,
-      Authorization: "Bearer " + window.localStorage.getItem("account_token")
+      Authorization: "Bearer " + window.localStorage.getItem("account_token"),
+      "x-api-version": version || v1
     }
   });
   return axios_instance;
@@ -155,6 +163,9 @@ function $AlertErrorr(response) {
 }
 
 var http = {
+  $setVer: function(ver) {
+    setVersion(ver);
+  },
   ///POST数据请求
   $Post: function(model, url, contentType, dataType) {
     ///初始化请求
@@ -211,10 +222,10 @@ var http = {
     });
     return CommPromise(res);
   }, ///POST数据请求
-  $download: function(model, url,filename) {
+  $download: function(model, url, filename) {
     ///初始化请求
     var paramerter = new Object();
-    paramerter.contentType =  "application/json";
+    paramerter.contentType = "application/json";
     paramerter.dataType = "json";
     var post = request(paramerter);
     var res = post({
@@ -223,8 +234,11 @@ var http = {
       data: model,
       responseType: "blob" // 设置响应数据类型
     });
-    return CommDownloadPromise(res,filename);
-  }
+    return CommDownloadPromise(res, filename);
+  },
+  v2: v2, ///v2版
+  v1: v1, ///v1版
+  currversion: currversion ///当前版
 };
 
 ///导出方法
@@ -248,6 +262,12 @@ export default {
   $download: function(model, url, filename) {
     return http.$download(model, url, filename);
   },
-  api: api
+  $setVer: function(version) {
+    http.$setVer(version);
+  },
+  api: api,
+  v2: http.v2,
+  v1: http.v1,
+  currversion: currversion ///当前版
 };
 </script>

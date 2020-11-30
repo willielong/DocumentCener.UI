@@ -3,17 +3,14 @@
     <remote-script
       src="http://192.168.0.105:801/web-apps/apps/api/documents/api.js"
     ></remote-script>
-     <div class="row">
-        <div class="col el-row">
-          <banner></banner>
-        </div>
+    <div class="row">
+      <div class="col el-row">
+        <banner></banner>
       </div>
-      <div id="iframeEditor_div"
-        class="row"
-        style="margin:0px"
-      >
-        <div id="iframeEditor"></div>
-      </div>
+    </div>
+    <div id="iframeEditor_div" class="row" style="margin:0px">
+      <div id="iframeEditor"></div>
+    </div>
   </form>
 </template>
 <script src="http://192.168.0.105:801/web-apps/apps/api/documents/api.js"></script>
@@ -57,10 +54,16 @@ var onOutdatedVersion = function(event) {
 };
 window.onload = function() {
   var fileId = getUrlParam("fileid");
-  var ctype =  getUrlParam("ctype");
+  var ctype = getUrlParam("ctype");
   var systemType = getUrlParam("systemType");
   let url =
-    httpbaseVue.api + "file/config?editType=" + ctype + "&systemType="+systemType+"&fileid=" + fileId;
+    httpbaseVue.api +
+    "file/config?editType=" +
+    ctype +
+    "&systemType=" +
+    systemType +
+    "&fileid=" +
+    fileId;
   $.ajax({
     type: "Get",
     url: url,
@@ -69,7 +72,9 @@ window.onload = function() {
     beforeSend: function(request) {
       request.setRequestHeader(
         "Authorization",
-        "Bearer " + window.localStorage.getItem("account_token")
+        "Bearer " + window.localStorage.getItem("account_token"),
+        "x-api-version",
+        1.0
       );
     },
     success: function(data) {
@@ -105,7 +110,9 @@ function LoadHist(fileId) {
     beforeSend: function(request) {
       request.setRequestHeader(
         "Authorization",
-        "Bearer " + window.localStorage.getItem("account_token")
+        "Bearer " + window.localStorage.getItem("account_token"),
+        "x-api-version",
+        1.0
       );
     },
     success: function(data) {
@@ -129,7 +136,9 @@ function setHist(version, fileid) {
     beforeSend: function(request) {
       request.setRequestHeader(
         "Authorization",
-        "Bearer " + window.localStorage.getItem("account_token")
+        "Bearer " + window.localStorage.getItem("account_token"),
+        "x-api-version",
+        1.0
       );
     },
     success: function(data) {
@@ -142,9 +151,9 @@ export default {
   name: "docedit",
   components: { banner }
 };
-$(function(){
-$("#iframeEditor_div").height($(window).height()-120);
-})
+$(function() {
+  $("#iframeEditor_div").height($(window).height() - 120);
+});
 </script>
 <style lang="stylus" scoped>
 @import url('~@/assets/css/home.css');

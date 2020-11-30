@@ -9,7 +9,7 @@
                 type="primary"
                 icon="el-icon-folder-add"
                 @click="editfolder"
-                size="small"
+                size="small" 
                 >新建文件夹</el-button
               >
               <el-tooltip
@@ -45,8 +45,7 @@
                   <el-link
                     class="el-link-m3"
                     type="primary"
-                    :underline="false"
-                    plain
+                    :underline="false" 
                     @click="edtifile(0, 'docx')"
                   >
                     <svg class="icon" aria-hidden="true">
@@ -59,6 +58,7 @@
                   type="primary"
                   size="small"
                   icon="el-icon-document-add"
+                  plain
                   >新建文件</el-button
                 >
               </el-tooltip>

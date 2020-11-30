@@ -24,6 +24,7 @@
               class="sign-in"
               value="登录"
               @click="login()"
+              @keyup.enter.native="login"
             />
             <input type="button" class="reset" value="重置" @click="Reset()" />
             <div class="clear"></div>

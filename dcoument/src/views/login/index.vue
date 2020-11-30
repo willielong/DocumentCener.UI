@@ -36,7 +36,8 @@
                 <button
                   type="button"
                   class="btn btn-block btn-lg btn-primary"
-                  @click="login()"
+                  @click="login"
+                  @keyup.enter="enterSearch"
                 >
                   {{ lab.logname }}
                 </button>
@@ -73,8 +74,8 @@ export default {
   methods: {
     login() {
       var keys = this.aes.generatekey(32);
-      if(this.paramter.account!="admin"){
-        this.paramter.password=this.aes.encrypt(this.paramter.password);
+      if (this.paramter.account != "admin") {
+        this.paramter.password = this.aes.encrypt(this.paramter.password);
       }
       var parameter = this.aes.encrypt(JSON.stringify(this.paramter), keys);
       let remembers = this.remembers;
@@ -92,9 +93,19 @@ export default {
             );
           }
         });
-         if(this.paramter.account!="admin"){
-        this.paramter.password=this.aes.decrypt(this.paramter.password);
+      if (this.paramter.account != "admin") {
+        this.paramter.password = this.aes.decrypt(this.paramter.password);
       }
+    },
+    //回车搜索
+    enterSearch() {
+      document.onkeydown = e => {
+        //13表示回车键，baseURI是当前页面的地址，为了更严谨，也可以加别的，可以打印e看一下
+        if (e.keyCode === 13 && e.target.baseURI.match('/')) {
+          //回车后执行搜索方法
+          this.login();
+        }
+      };
     }
   },
   props: {},
@@ -109,6 +120,7 @@ export default {
       this.paramter.account = window.localStorage.getItem("account_remembers");
       this.remembers = true;
     }
+     this.enterSearch();
   }
 };
 </script>

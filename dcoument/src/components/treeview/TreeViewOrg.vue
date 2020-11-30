@@ -127,7 +127,7 @@ export default {
         type = node.data.type;
         pid = node.data.id;
       }
-      let url = "tree/org?type=" + type + "&pid=" + pid;
+      let url = "tree/org?type=" + type + "&pid=" + pid; 
       this.common.$Get(null, url).then(data => {
         if (node.level === 0) {
           let res = new Object();
