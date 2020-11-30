@@ -76,6 +76,7 @@ window.onload = function() {
         "x-api-version",
         1.0
       );
+      request.setRequestHeader("x-api-version", 1.0);
     },
     success: function(data) {
       var config = data.body;
@@ -84,7 +85,7 @@ window.onload = function() {
         onDocumentStateChange: onDocumentStateChange,
         onRequestEditRights: onRequestEditRights,
         onError: onError,
-        onOutdatedVersion: onOutdatedVersion
+        onOutdatedVersion: onOutdatedVersion,
       };
       config.events["onRequestHistoryClose "] = function() {
         document.location.reload();
@@ -97,7 +98,7 @@ window.onload = function() {
         setHist(ver, fileId);
       };
       docEditor = new DocsAPI.DocEditor("iframeEditor", config);
-    }
+    },
   });
 };
 function LoadHist(fileId) {
@@ -114,11 +115,12 @@ function LoadHist(fileId) {
         "x-api-version",
         1.0
       );
+      request.setRequestHeader("x-api-version", 1.0);
     },
     success: function(data) {
       var hit = data.body;
       docEditor.refreshHistory(hit);
-    }
+    },
   });
 }
 function setHist(version, fileid) {
@@ -140,16 +142,17 @@ function setHist(version, fileid) {
         "x-api-version",
         1.0
       );
+      request.setRequestHeader("x-api-version", 1.0);
     },
     success: function(data) {
       var hit = data.body;
       docEditor.setHistoryData(hit);
-    }
+    },
   });
 }
 export default {
   name: "docedit",
-  components: { banner }
+  components: { banner },
 };
 $(function() {
   $("#iframeEditor_div").height($(window).height() - 120);
