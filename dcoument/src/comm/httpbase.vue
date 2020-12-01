@@ -26,7 +26,7 @@ function request(paramerter) {
       "Content-Type": paramerter.contentType,
       "Data-Type": paramerter.dataType,
       Authorization: "Bearer " + window.localStorage.getItem("account_token"),
-      "x-api-version": version || v1
+      "api-version": version || v1
     }
   });
   return axios_instance;
