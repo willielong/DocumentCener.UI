@@ -31,10 +31,20 @@
         <i class="el-icon-s-custom"></i>
         <span slot="title">员工管理</span>
       </el-menu-item>
-      <el-menu-item index="4">
-        <i class="el-icon-s-tools"></i>
-        <span slot="title">系统管理</span>
-      </el-menu-item>
+      <el-submenu index="4">
+        <template slot="title">
+          <i class="el-icon-s-tools"></i>
+          <span>系统管理</span>
+        </template>
+        <el-menu-item index="4-1">
+          <i class="el-icon-coin"></i>
+          <span slot="title">数据表设置</span>
+        </el-menu-item>
+        <el-menu-item index="4-2"
+          ><i class="el-icon-connection"></i>
+          <span slot="title">常用参数设置</span></el-menu-item
+        >
+      </el-submenu>
     </el-menu>
     <div class="wl_body_widen" id="wl_body_widen" :style="rstyle">
       <div class="row">
@@ -63,6 +73,9 @@
 .el-menu-item {
   text-align: left;
 }
+.el-submenu {
+  text-align: left;
+}
 .wl_body_widen {
   min-height: 600px;
   text-align: left;
@@ -70,6 +83,9 @@
 }
 .el-menu {
   border-right: none;
+}
+.el-submenu .el-menu-item {
+  min-width: 160px;
 }
 </style>
 
