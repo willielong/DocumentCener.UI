@@ -1,7 +1,7 @@
 <script>
 import axios from "axios";
 import { Message } from "element-ui";
-const api = "http://10.55.165.50:82/api/";
+const api = "http://192.168.0.105:82/api/";
 const v2 = 2.0;
 const v1 = 1.0;
 const currversion = 2.0;
@@ -19,15 +19,15 @@ function request(paramerter) {
           data = JSON.stringify(data);
           return data;
         }
-      }
+      },
     ],
     // 设置Content - Type
     headers: {
       "Content-Type": paramerter.contentType,
       "Data-Type": paramerter.dataType,
       Authorization: "Bearer " + window.localStorage.getItem("account_token"),
-      "api-version": version || v1
-    }
+      "api-version": version || v1,
+    },
   });
   return axios_instance;
 }
@@ -35,18 +35,18 @@ function request(paramerter) {
 function CommPromise(res) {
   return new Promise((resolve, reject) => {
     res.then(
-      response => {
+      (response) => {
         if (response.data.status) {
           resolve(response.data);
         } else {
           Message({
             showClose: true,
             message: response.data.message,
-            type: "error"
+            type: "error",
           });
         }
       },
-      err => {
+      (err) => {
         if (err && err.response) {
           $AlertErrorr(err.response);
           setTimeout(() => {
@@ -60,7 +60,7 @@ function CommPromise(res) {
           Message({
             showClose: true,
             message: "接口内部服务错误",
-            type: "error"
+            type: "error",
           });
         }
       }
@@ -70,7 +70,7 @@ function CommPromise(res) {
 ///将返回参数封装完成
 function CommDownloadPromise(res, filename) {
   res.then(
-    response => {
+    (response) => {
       if (response.status) {
         const data = response.data;
         let url = window.URL.createObjectURL(data); // 将二进制文件转化为可访问的url
@@ -84,11 +84,11 @@ function CommDownloadPromise(res, filename) {
         Message({
           showClose: true,
           message: response.data.message,
-          type: "error"
+          type: "error",
         });
       }
     },
-    err => {
+    (err) => {
       if (err && err.response) {
         $AlertErrorr(err.response);
         setTimeout(() => {
@@ -101,7 +101,7 @@ function CommDownloadPromise(res, filename) {
         Message({
           showClose: true,
           message: "接口内部服务错误",
-          type: "error"
+          type: "error",
         });
       }
     }
@@ -135,7 +135,7 @@ function $AlertErrorr(response) {
       statusText = "请求超时";
       break;
     case 500:
-      statusText = "接口内部服务错误";
+      statusText = Setting500Error(response.data);
       break;
     case 501:
       statusText = "网络未实现";
@@ -158,8 +158,11 @@ function $AlertErrorr(response) {
   Message({
     showClose: true,
     message: statusText,
-    type: "error"
+    type: "error",
   });
+}
+function Setting500Error(res) {
+  return res.message;
 }
 
 var http = {
@@ -176,7 +179,7 @@ var http = {
     var res = post({
       url: api + url,
       method: "POST",
-      data: model
+      data: model,
     });
     return CommPromise(res);
   },
@@ -190,7 +193,7 @@ var http = {
     var res = get({
       url: api + url,
       method: "GET",
-      data: model ?? ""
+      data: model ?? "",
     });
     return CommPromise(res);
   },
@@ -204,7 +207,7 @@ var http = {
     var res = dl({
       url: api + url,
       method: "DELETE",
-      data: model ?? ""
+      data: model ?? "",
     });
     return CommPromise(res);
   },
@@ -218,7 +221,7 @@ var http = {
     var res = put({
       url: api + url,
       method: "PUT",
-      data: model ?? ""
+      data: model ?? "",
     });
     return CommPromise(res);
   }, ///POST数据请求
@@ -232,13 +235,13 @@ var http = {
       url: api + url,
       method: "POST",
       data: model,
-      responseType: "blob" // 设置响应数据类型
+      responseType: "blob", // 设置响应数据类型
     });
     return CommDownloadPromise(res, filename);
   },
   v2: v2, ///v2版
   v1: v1, ///v1版
-  currversion: currversion ///当前版
+  currversion: currversion, ///当前版
 };
 
 ///导出方法
@@ -268,6 +271,6 @@ export default {
   api: api,
   v2: http.v2,
   v1: http.v1,
-  currversion: currversion ///当前版
+  currversion: currversion, ///当前版
 };
 </script>
