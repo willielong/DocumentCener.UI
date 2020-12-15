@@ -57,8 +57,16 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false" type="danger" plain size="small">取 消</el-button>
-        <el-button type="warning" plain @click="submitForm()" size="small">确 定</el-button>
+        <el-button
+          @click="dialogFormVisible = false"
+          type="danger"
+          plain
+          size="small"
+          >取 消</el-button
+        >
+        <el-button type="warning" plain @click="submitForm()" size="small"
+          >确 定</el-button
+        >
       </div>
     </el-dialog>
   </div>
@@ -119,13 +127,17 @@ export default {
           if (!regex.test(value)) {
             return callback(new Error("请输入英文字符、数字组成的员工编码"));
           } else {
-            this.common.$Get(null, "employee/getlist/" + value).then(res => {
-              if (res.body.length > 0) {
-                return callback(new Error("已存在相同的员工编码"));
-              } else {
-                callback();
-              }
-            });
+            if (this.form.empid === 0) {
+              this.common.$Get(null, "employee/getlist/" + value).then(res => {
+                if (res.body.length > 0) {
+                  return callback(new Error("已存在相同的员工编码"));
+                } else {
+                  callback();
+                }
+              });
+            } else {
+              callback();
+            }
           }
         }
       }
